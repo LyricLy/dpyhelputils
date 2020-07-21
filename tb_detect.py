@@ -59,8 +59,11 @@ bot = discord.Client()
 
 @bot.event
 async def on_message(message):
-    if bot.user in message.mentions and not full_verify(message.content):
-        await message.channel.send("Message failed checks. Your discord.py version is likely out of date.")
+    if bot.user in message.mentions:
+        if not full_verify(message.content):
+            await message.channel.send("Message failed checks. Your discord.py version is likely out of date.")
+        elif "help" in message.content:
+            await message.channel.send("This bot was made by LyricLy#5695. Use it by pinging the bot and sending a traceback in the same message to check it. For proof of concept purposes only.")
 
 with open("token.txt") as t:
     token = t.read()
